@@ -48,9 +48,9 @@ describe('updater-git-tags', function() {
     });
   });
 
-  // afterEach(function(cb) {
-  //   del(actual(), cb);
-  // });
+  afterEach(function(cb) {
+    del(actual(), cb);
+  });
 
   describe('tasks', function() {
     it('should extend tasks onto the instance', function() {
@@ -59,7 +59,7 @@ describe('updater-git-tags', function() {
       assert(app.tasks.hasOwnProperty('git-tags'));
     });
 
-    it.only('should run the `default` task with .build', function(cb) {
+    it('should run the `default` task with .build', function(cb) {
       app.use(updater);
       app.build('default', exists(expected, cb));
     });
