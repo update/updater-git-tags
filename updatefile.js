@@ -1,77 +1,52 @@
 'use strict';
 
-var isValid = require('is-valid-app');
+var utils = require('./utils');
 
 module.exports = function(app) {
-  if (!isValid(app, 'updater-git-tags')) return;
+  if (!utils.isValid(app, 'updater-git-tags')) return;
 
   /**
-   * Plugins
-   */
-
-  app.use(rqeuire('generate-project'));
-
-  /**
-   * Scaffold out a new gitTags project. This task is an alias for the [gitTags](#gitTags)
+   * Update the git tags for a project. This task is an alias for the [git-tags](#git-tags)
    * task, to allow running this updater with the following command:
    *
    * ```sh
-   * $ gen gitTags
+   * $ update git-tags
    * ```
    * @name default
    * @api public
    */
 
-  app.task('default', ['gitTags']);
+  app.task('default', ['git-tags']);
 
   /**
-   * Scaffold out an [Update][] updater project. Also aliased as the [default](#default) task.
+   * Update the git tags for a project. Also aliased as the [default](#default) task.
+   * This will only find missing git tags if there is a git commit with a version number.
    *
    * ```sh
-   * $ gen updater:updater
+   * $ update git-tags:git-tags
    * ```
-   * @name updater
+   * @name git-tags
    * @api public
    */
 
-  app.task('gitTags', ['files']);
-
-  /**
-   * Write a `updater.js` file to the current working directory.
-   *
-   * ```sh
-   * $ gen updater:file
-   * ```
-   * @name file
-   * @api public
-   */
-
-  task(app, 'updater', 'templates/updater.js');
-  task(app, 'index', 'templates/index.js');
-
-  /**
-   * Generate the files in the `templates` directory.
-   *
-   * ```sh
-   * $ gen updater:templates
-   * ```
-   * @name templates
-   * @api public
-   */
-
-  task(app, 'templates', 'templates/templates/*');
-};
-
-/**
- * Create a task with the given `name` and glob `pattern`
- */
-
-function task(app, name, pattern) {
-  app.task(name, function() {
-    var dest = app.options.dest || app.cwd;
-    return app.src(pattern, {cwd: __dirname})
-      .pipe(app.renderFile('*'))
-      .pipe(app.conflicts(dest))
-      .pipe(app.dest(dest));
+  app.task('git-tags', function(cb) {
+    var opts = {cwd: app.cwd};
+    utils.parseLog(opts, function(err, commits) {
+      if (err) return cb(err);
+      utils.parseTags(opts, function(err, tags) {
+        if (err) return cb(err);
+        var missing = commits.filter(function(commit) {
+          return tags.indexOf(commit.message.trim()) === -1
+        });
+        utils.each(missing, function(commit, next) {
+          console.log(utils.log.timestamp, 'Adding tag', utils.log.cyan(commit.message), 'for commit', utils.log.cyan(commit.commit));
+          utils.tagCommit(commit, opts, next);
+        }, function(err, results) {
+          if (err) return cb(err);
+          console.log(utils.log.timestamp, 'Added', utils.log.cyan(results.length), 'missing tags.');
+          cb();
+        });
+      });
+    });
   });
-}
+};
