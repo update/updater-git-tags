@@ -21,29 +21,24 @@ module.exports = function(options, cb) {
   mkdirp.sync(opts.cwd);
   var commands = [
     {cmd: 'git', args: ['init']},
-    {cmd: 'git', args: ['status']},
     {cmd: 'git', args: ['add', '.']},
     {cmd: 'git', args: ['commit', '-m', 'init']},
 
     {cmd: echo('line one')},
-    {cmd: 'git', args: ['status']},
     {cmd: 'git', args: ['add', '.']},
     {cmd: 'git', args: ['commit', '-m', '0.1.0']},
     {cmd: 'git', args: ['tag', '-a', '0.1.0', '-m', '0.1.0']},
 
     {cmd: echo('line two')},
-    {cmd: 'git', args: ['status']},
     {cmd: 'git', args: ['add', '.']},
     {cmd: 'git', args: ['commit', '-m', '0.2.0']},
 
     {cmd: echo('line three')},
-    {cmd: 'git', args: ['status']},
     {cmd: 'git', args: ['add', '.']},
     {cmd: 'git', args: ['commit', '-m', '0.3.0']},
     {cmd: 'git', args: ['tag', '-a', '0.3.0', '-m', '0.3.0']},
 
     {cmd: echo('line four')},
-    {cmd: 'git', args: ['status']},
     {cmd: 'git', args: ['add', '.']},
     {cmd: 'git', args: ['commit', '-m', 'v0.4.0']}
   ];
@@ -54,14 +49,10 @@ module.exports = function(options, cb) {
       command.cmd(next);
       return;
     }
-
-    exec(command.cmd, command.args, function(err, result) {
-      console.log(arguments);
-      next(err, result);
-    });
+    exec(command.cmd, command.args, next);
   }, function(err) {
-    process.chdir(cwd);
     if (err) return cb(err);
+    process.chdir(cwd);
     cb();
   });
 }
@@ -77,6 +68,6 @@ function exec(cmd, args, cb) {
 
 function echo(message) {
   return function(cb) {
-    fs.appendFile('temp.txt', message, 'utf8', cb);
+    fs.writeFile('temp.txt', message, 'utf8', cb);
   };
 }
