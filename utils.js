@@ -11,7 +11,7 @@ require = utils;
  * Lazily required module dependencies
  */
 
-require('async-each', 'each');
+require('async-each-series', 'each');
 require('cross-spawn', 'spawn');
 require('extend-shallow', 'extend');
 require('fs-exists-sync', 'exists');
@@ -72,15 +72,15 @@ utils.tagCommit = function(commit, options, cb) {
   var fp = path.join(opts.cwd, '.git');
   if (utils.exists(fp)) {
     process.chdir(fp);
-    var child = utils.spawn.sync('git', ['tag', '-a', commit.message, '-m', commit.message]);
+    var results = utils.spawn.sync('git', ['tag', '-a', commit.message, '-m', commit.message]);
     process.chdir(cwd);
 
-    if (child.stderr && child.stderr.toString()) {
-      cb(new Error(child.stderr.toString()));
+    if (results.error || (results.stderr && results.stderr.toString())) {
+      cb(new Error(results.error || results.stderr.toString()));
       return;
     }
   }
-  cb(null, child.stdout.toString());
+  cb(null, (results.stdout && results.stdout.toString()) || '');
 };
 
 /**

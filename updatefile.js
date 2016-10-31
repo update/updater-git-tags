@@ -38,10 +38,15 @@ module.exports = function(app) {
         var missing = commits.filter(function(commit) {
           return tags.indexOf(commit.message.trim()) === -1
         });
+        var results = [];
         utils.each(missing, function(commit, next) {
           console.log(utils.log.timestamp, 'Adding tag', utils.log.cyan(commit.message), 'for commit', utils.log.cyan(commit.commit));
-          utils.tagCommit(commit, opts, next);
-        }, function(err, results) {
+          utils.tagCommit(commit, opts, function(err, result) {
+            if (err) return next(err);
+            results.push(result);
+            next();
+          });
+        }, function(err) {
           if (err) return cb(err);
           console.log(utils.log.timestamp, 'Added', utils.log.cyan(results.length), 'missing tags.');
           cb();

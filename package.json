@@ -26,11 +26,10 @@
     "generategenerator"
   ],
   "dependencies": {
-    "async-each": "^1.0.1",
+    "async-each-series": "^1.1.0",
     "cross-spawn": "^5.0.0",
     "extend-shallow": "^2.0.1",
     "fs-exists-sync": "^0.1.0",
-    "generate-project": "^0.6.0",
     "is-valid-app": "^0.2.1",
     "lazy-cache": "^2.0.1",
     "log-utils": "^0.2.1",
