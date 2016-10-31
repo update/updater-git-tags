@@ -1,0 +1,27 @@
+{
+  "name": "updater-git-tags",
+  "description": "Update missing git tags.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/update %>/updater-git-tags",
+  "author": " ()",
+  "repository": "update/updater-git-tags",
+  "bugs": {
+    "url": "https://github.com/update/updater-git-tags/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "LICENSE",
+    "updatefile.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "generategenerator"
+  ]
+}
