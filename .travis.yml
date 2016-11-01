@@ -13,3 +13,6 @@ matrix:
     - node_js: "4"
     - node_js: "0.10"
     - node_js: "0.12"
+before_install:
+  - git config --global user.email "brian.woodward@gmail.com"
+  - git config --global user.name "doowb"
