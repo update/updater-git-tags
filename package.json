@@ -2,8 +2,8 @@
   "name": "updater-git-tags",
   "description": "Update missing git tags.",
   "version": "0.1.0",
-  "homepage": "https://github.com/update %>/updater-git-tags",
-  "author": " ()",
+  "homepage": "https://github.com/update/updater-git-tags",
+  "author": "Brian Woodward (https://github.com/doowb)",
   "repository": "update/updater-git-tags",
   "bugs": {
     "url": "https://github.com/update/updater-git-tags/issues"
@@ -23,7 +23,21 @@
     "test": "mocha"
   },
   "keywords": [
-    "generategenerator"
+    "chore",
+    "git",
+    "git-tags",
+    "github",
+    "gittag",
+    "gittags",
+    "maintain",
+    "maintainer",
+    "maintenance",
+    "tag",
+    "tags",
+    "task",
+    "update",
+    "updater",
+    "updateupdater"
   ],
   "dependencies": {
     "async-each-series": "^1.1.0",
@@ -38,9 +52,23 @@
   "devDependencies": {
     "copy": "^0.3.0",
     "delete": "^0.3.2",
+    "gulp-format-md": "^0.1.11",
     "mkdirp": "^0.5.1",
     "mocha": "^3.1.2",
     "npm-install-global": "^0.1.2",
     "update": "^0.7.4"
+  },
+  "verb": {
+    "toc": false,
+    "layout": "updater",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "lint": {
+      "reflinks": true
+    }
   }
 }
