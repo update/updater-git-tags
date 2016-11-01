@@ -25,6 +25,45 @@ Updaters can be run from the command line when [Update's CLI](https://github.com
 * Visit the [update documentation](https://github.com/update/update/blob/master/docs/)
 * Find [updaters on npm](https://www.npmjs.com/browse/keyword/update-updater) (help us [author updaters](https://github.com/update/update/blob/master/docs/updaters.md))
 
+## Tasks
+
+Tasks are modularized in an effort to make it as easy as possible for you to create your own a-la-carte updater experience. As such:
+
+* some tasks update one specific file
+* some tasks update multiple files
+* some tasks are just aliases for running "groups" of tasks
+
+**Running tasks**
+
+To run a task, just run `$ update git-tags:` followed by the name of the task to run. For example, either of the following commands can be used to run the `git-tags` task:
+
+```sh
+$ update updater-git-tags:git-tags
+$ update updater-git-tags:default
+```
+
+### Available tasks
+
+#### [default](updatefile.js#L19)
+
+Update the git tags for a project. This task is an alias for the [git-tags](#git-tags) task, to allow running this updater with the following command:
+
+**Example**
+
+```sh
+$ update git-tags
+```
+
+#### [git-tags](updatefile.js#L32)
+
+Update the git tags for a project. Also aliased as the [default](#default) task. This will only find missing git tags if there is a git commit with a version number.
+
+**Example**
+
+```sh
+$ update git-tags:git-tags
+```
+
 ## Next steps
 
 ### Running unit tests
