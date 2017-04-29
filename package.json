@@ -32,6 +32,7 @@
   "devDependencies": {
     "copy": "^0.3.0",
     "delete": "^0.3.2",
+    "global-modules": "^0.2.3",
     "gulp-format-md": "^0.1.12",
     "mkdirp": "^0.5.1",
     "mocha": "^3.3.0",
