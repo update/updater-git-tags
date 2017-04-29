@@ -10,7 +10,6 @@
   },
   "license": "MIT",
   "files": [
-    "LICENSE",
     "index.js",
     "updatefile.js",
     "utils.js"
@@ -22,23 +21,6 @@
   "scripts": {
     "test": "mocha"
   },
-  "keywords": [
-    "chore",
-    "git",
-    "git-tags",
-    "github",
-    "gittag",
-    "gittags",
-    "maintain",
-    "maintainer",
-    "maintenance",
-    "tag",
-    "tags",
-    "task",
-    "update",
-    "updater",
-    "updateupdater"
-  ],
   "dependencies": {
     "async-each-series": "^1.1.0",
     "cross-spawn": "^5.0.0",
@@ -57,6 +39,34 @@
     "npm-install-global": "^0.1.2",
     "update": "^0.7.4"
   },
+  "keywords": [
+    "chore",
+    "fix",
+    "git",
+    "git-tags",
+    "github",
+    "gittag",
+    "gittags",
+    "lint",
+    "linter",
+    "maintain",
+    "maintainance",
+    "maintainer",
+    "maintenance",
+    "plugin",
+    "plugins",
+    "tag",
+    "tags",
+    "task",
+    "up-to-date",
+    "update",
+    "update-plugin",
+    "update-updater",
+    "updateplugin",
+    "updater",
+    "updateupdater",
+    "upkeep"
+  ],
   "verb": {
     "toc": false,
     "layout": "updater",
