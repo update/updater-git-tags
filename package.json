@@ -23,20 +23,19 @@
   },
   "dependencies": {
     "async-each-series": "^1.1.0",
-    "cross-spawn": "^5.0.0",
+    "cross-spawn": "^5.1.0",
     "extend-shallow": "^2.0.1",
-    "fs-exists-sync": "^0.1.0",
-    "is-valid-app": "^0.2.1",
-    "lazy-cache": "^2.0.1",
+    "is-valid-app": "^0.3.0",
+    "lazy-cache": "^2.0.2",
     "log-utils": "^0.2.1"
   },
   "devDependencies": {
     "copy": "^0.3.0",
     "delete": "^0.3.2",
-    "gulp-format-md": "^0.1.11",
+    "gulp-format-md": "^0.1.12",
     "mkdirp": "^0.5.1",
-    "mocha": "^3.1.2",
-    "npm-install-global": "^0.1.2",
+    "mocha": "^3.3.0",
+    "npm-install-global": "^1.0.0",
     "update": "^0.7.4"
   },
   "keywords": [

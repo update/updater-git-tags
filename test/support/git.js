@@ -14,7 +14,7 @@ module.exports = function(options, cb) {
   var opts = utils.extend({cwd: cwd}, options);
   var fp = path.join(opts.cwd, '.git');
 
-  if (utils.exists(fp)) {
+  if (fs.existsSync(fp)) {
     return cb();
   }
 

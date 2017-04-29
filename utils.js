@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var path = require('path');
-
 var utils = require('lazy-cache')(require);
 var fn = require;
 require = utils;
@@ -14,7 +13,6 @@ require = utils;
 require('async-each-series', 'each');
 require('cross-spawn', 'spawn');
 require('extend-shallow', 'extend');
-require('fs-exists-sync', 'exists');
 require('is-valid-app', 'isValid');
 require('log-utils', 'log');
 require = fn;
@@ -30,7 +28,7 @@ utils.parseLog = function(options, cb) {
   var opts = utils.extend({cwd: cwd}, options);
   var fp = path.join(opts.cwd, '.git');
   var results = [];
-  if (utils.exists(fp)) {
+  if (fs.existsSync(fp)) {
     process.chdir(fp);
     // formats logs to look like
     // 793cfa5db68794e5f77951f9e5abb4e9ef6cd41a first commit
@@ -77,7 +75,7 @@ utils.parseTags = function(options, cb) {
   var opts = utils.extend({cwd: cwd}, options);
   var fp = path.join(opts.cwd, '.git');
   var res = [];
-  if (utils.exists(fp)) {
+  if (fs.existsSync(fp)) {
     process.chdir(fp);
     var child = utils.spawn.sync('git', ['tag']);
     res = child.stdout.toString()
@@ -97,7 +95,7 @@ utils.tagCommit = function(commit, options, cb) {
 
   var opts = utils.extend({cwd: cwd}, options);
   var fp = path.join(opts.cwd, '.git');
-  if (utils.exists(fp)) {
+  if (fs.existsSync(fp)) {
     process.chdir(fp);
     var results = utils.spawn.sync('git', ['tag', '-a', commit.message, '-m', commit.message, commit.commit]);
     process.chdir(cwd);
