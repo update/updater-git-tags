@@ -1,9 +1,11 @@
 'use strict';
 
 require('mocha');
+var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var update = require('update');
+var gm = require('global-modules');
 var npm = require('npm-install-global');
 var del = require('delete');
 var copy = require('copy');
@@ -30,12 +32,27 @@ function exists(tags, cb) {
   };
 }
 
+function maybeLink(cb) {
+  if (!fs.existsSync(path.join(gm, 'updater-git-tags'))) {
+    npm('link', '.', cb);
+  } else {
+    cb();
+  }
+}
+
 describe('updater-git-tags', function() {
   this.slow(250);
 
   if (!process.env.CI && !process.env.TRAVIS) {
     before(function(cb) {
-      npm.maybeInstall('update', cb);
+      this.timeout(100000);
+      maybeLink(function(err) {
+        if (err) {
+          cb(err);
+          return;
+        }
+        npm.maybeInstall('update', cb);
+      });
     });
   }
 
